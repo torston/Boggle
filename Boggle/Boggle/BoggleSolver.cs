@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Boggle
@@ -11,6 +12,10 @@ namespace Boggle
 
         public BoggleSolver(string dictionaryPath)
         {
+            if (!File.Exists(dictionaryPath))
+            {
+                throw new FileNotFoundException("Dictionary not found!", dictionaryPath);
+            }
             tree = new TrieHelper(dictionaryPath).MakeTrie();
         }
 
