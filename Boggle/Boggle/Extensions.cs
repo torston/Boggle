@@ -5,7 +5,7 @@ namespace Boggle
 {
     public static class Extensions
     {
-        public static bool In2DArrayBounds(this object[,] array, int x, int y)
+        public static bool In2DArrayBounds(this char[,] array, int x, int y)
         {
             return 
                 x >= array.GetLowerBound(0) && 
