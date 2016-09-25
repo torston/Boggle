@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoggleSolverr.cs" />
+    <Compile Include="BoggleSolver.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IResults.cs" />
     <Compile Include="ISolver.cs" />
     <Compile Include="MyBoggleSolution.cs" />
@@ -53,6 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dictionary.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
