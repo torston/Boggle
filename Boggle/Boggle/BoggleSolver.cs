@@ -1,80 +1,79 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Boggle
 {
-    public class BoggleSolver : ISolver
+    public partial class BoggleSolver : ISolver
     {
-        private readonly List<string> words = new List<string>();
-        private char[,] board;
-        private readonly TrieNode tree;
+        private readonly HashSet<string> _words;
+        private readonly ITrieNode _tree;
 
-        public BoggleSolver(string dictionaryPath)
+        private char[,] _board;
+
+        public BoggleSolver(ITrieHelper trieHelper)
         {
-            if (!File.Exists(dictionaryPath))
-            {
-                throw new FileNotFoundException("Dictionary not found!", dictionaryPath);
-            }
-            tree = new TrieHelper(dictionaryPath).MakeTrie();
+            _tree = trieHelper.MakeTrie();
+            _words = new HashSet<string>();
         }
 
-        public IResults FindWords(char[,] randomBoard)
+        public IResults FindWords(char[,] inputBoard)
         {
-            board = randomBoard;
+            _board = inputBoard;
 
-            for (var i = 0; i < randomBoard.GetLength(0); i++)
+            for (var i = 0; i < inputBoard.GetLength(0); i++)
             {
-                for (var j = 0; j < randomBoard.GetLength(1); j++)
+                for (var j = 0; j < inputBoard.GetLength(1); j++)
                 {
-                    FindWord(i, j, string.Empty, new List<Letter>(), tree);
+                    FindWord(i, j, string.Empty, new List<PathNode>(), _tree);
                 }
             }
 
-            return new Result(words);
+            return new Result(_words);
         }
 
-        public void FindWord(int r, int c, string prefix, List<Letter> path, TrieNode parentNode)
+        private void FindWord(int r, int c, string prefix, ICollection<PathNode> path, ITrieNode parentNode)
         {
             // Check indexes in bounds
-            if (!board.IsInBoardRange(r, c))
+            if (!_board.IsInBoardRange(r, c))
             {
                 return;
             }
             // Check same cell using
-            if (path.Any(bogLet => bogLet.Column == c && bogLet.Row == r))
+            if (path.Any(pathNode => pathNode.Column == c && pathNode.Row == r))
             {
                 return;
             }
             // Check max word length
-            if (prefix.Length == board.GetLength(0) * board.GetLength(1) + 1)
+            if (prefix.Length == _board.GetLength(0) * _board.GetLength(1) + 1)
             {
                 return;
             }
 
             // Check if word-part have next character
-            TrieNode node;
-            if (!parentNode.children.TryGetValue(board[r, c], out node))
+            ITrieNode node;
+            if (!parentNode.Children.TryGetValue(_board[r, c], out node))
             {
                 return;
             }
 
-            var character = board[r, c];
+            var character = _board[r, c];
 
-            path.Add(new Letter(r, c, character));
+            path.Add(new PathNode(r, c));
 
             prefix += character;
 
+            // using HandleQ function because if we have 'q' letter in cell it's actually 'qu', so
+            // we have get next node for 'U' letter
             if (character == 'q')
             {
-                // using QHack function because if we have 'Q' letter in cell it's actually 'QU', so
-                // we have get next node for 'U' letter
-                if (QHack(ref node)) return;
+                if (HandleQ(ref node)) return;
+
+                prefix += 'u';
             }
 
             if (node.IsWord)
             {
-                words.Add(prefix);
+                _words.Add(prefix);
             }
 
             // Checking neighbor cells
@@ -87,10 +86,10 @@ namespace Boggle
             }
         }
 
-        private static bool QHack(ref TrieNode node)
+        private static bool HandleQ(ref ITrieNode node)
         {
-            TrieNode node2;
-            if (node.children.TryGetValue('u', out node2))
+            ITrieNode node2;
+            if (node.Children.TryGetValue('u', out node2))
             {
                 node = node2;
             }

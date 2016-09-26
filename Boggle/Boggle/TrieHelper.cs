@@ -1,37 +1,39 @@
 using System.Collections.Generic;
-using System.IO;
 
 namespace Boggle
 {
-    public class TrieHelper
+    public class TrieHelper : ITrieHelper
     {
-        private HashSet<string> loadedWords;
+        private readonly HashSet<string> _loadedWords;
+        private readonly ITrieNodeFactory _nodeFactory;
 
-        public TrieHelper(string path)
+        public TrieHelper(IWordsRepository wordsRepository, ITrieNodeFactory factory)
         {
-            Load(path);
-            MakeTrie();
+            _nodeFactory = factory;
+            _loadedWords = wordsRepository.Load();
         }
 
-        public TrieNode MakeTrie()
+        public ITrieNode MakeTrie()
         {
-            var root = new TrieNode();
+            var root = _nodeFactory.CrateNode();
 
-            foreach (var word in loadedWords)
+            foreach (var word in _loadedWords)
             {
                 var curNode = root;
 
                 foreach (var letter in word)
                 {
-                    TrieNode nextNode;
-                    if (curNode.children.ContainsKey(letter))
+                    ITrieNode nextNode;
+                    if (curNode.Children.ContainsKey(letter))
                     {
-                        nextNode = curNode.children[letter];
+                        nextNode = curNode.Children[letter];
                     }
                     else
                     {
-                        nextNode = new TrieNode(curNode);
-                        curNode.children.Add(letter, nextNode);
+                        nextNode = _nodeFactory.CrateNode();
+                        nextNode.SetParent(curNode);
+
+                        curNode.Children.Add(letter, nextNode);
                     }
 
                     curNode = nextNode;
@@ -41,24 +43,10 @@ namespace Boggle
 
             return root;
         }
+    }
 
-        private void Load(string path)
-        {
-            loadedWords = new HashSet<string>();
-
-            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (var bs = new BufferedStream(fs))
-            using (var sr = new StreamReader(bs))
-            {
-                string word;
-                while ((word = sr.ReadLine()) != null)
-                {
-                    if (word.Length >= 3)
-                    {
-                        loadedWords.Add(word.Trim().ToLower());
-                    }
-                }
-            }
-        }
+    public interface ITrieHelper
+    {
+        ITrieNode MakeTrie();
     }
 }
