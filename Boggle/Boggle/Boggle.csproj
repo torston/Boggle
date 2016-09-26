@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoggleBootstrapper.cs" />
     <Compile Include="BoggleSolver.cs" />
     <Compile Include="BoggleSolver.PathNode.cs" />
     <Compile Include="Interfaces\IWordsRepository.cs" />
