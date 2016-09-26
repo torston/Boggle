@@ -53,10 +53,8 @@
   <ItemGroup>
     <Compile Include="BoggleBootstrapper.cs" />
     <Compile Include="BoggleSolver.cs" />
-    <Compile Include="BoggleSolver.PathNode.cs" />
+    <Compile Include="WordFinder.PathNode.cs" />
     <Compile Include="Interfaces\IWordsRepository.cs" />
-    <Compile Include="Interfaces\ITrieNode.cs" />
-    <Compile Include="Interfaces\ITrieNodeFactory.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Requested\IResults.cs" />
     <Compile Include="Requested\ISolver.cs" />
@@ -66,6 +64,7 @@
     <Compile Include="Result.cs" />
     <Compile Include="TrieHelper.cs" />
     <Compile Include="TrieNode.cs" />
+    <Compile Include="WordFinder.cs" />
     <Compile Include="WordsRepository.cs" />
   </ItemGroup>
   <ItemGroup>

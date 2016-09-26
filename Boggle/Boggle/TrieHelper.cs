@@ -4,34 +4,24 @@ namespace Boggle
 {
     public class TrieHelper : ITrieHelper
     {
-        private readonly HashSet<string> _loadedWords;
-        private readonly ITrieNodeFactory _nodeFactory;
-
-        public TrieHelper(IWordsRepository wordsRepository, ITrieNodeFactory factory)
+        public TrieNode MakeTrie(HashSet<string> loadedWords)
         {
-            _nodeFactory = factory;
-            _loadedWords = wordsRepository.Load();
-        }
+            var root = new TrieNode();
 
-        public ITrieNode MakeTrie()
-        {
-            var root = _nodeFactory.CrateNode();
-
-            foreach (var word in _loadedWords)
+            foreach (var word in loadedWords)
             {
                 var curNode = root;
 
                 foreach (var letter in word)
                 {
-                    ITrieNode nextNode;
+                    TrieNode nextNode;
                     if (curNode.Children.ContainsKey(letter))
                     {
                         nextNode = curNode.Children[letter];
                     }
                     else
                     {
-                        nextNode = _nodeFactory.CrateNode();
-                        nextNode.SetParent(curNode);
+                        nextNode = new TrieNode(curNode);
 
                         curNode.Children.Add(letter, nextNode);
                     }
@@ -47,6 +37,6 @@ namespace Boggle
 
     public interface ITrieHelper
     {
-        ITrieNode MakeTrie();
+        TrieNode MakeTrie(HashSet<string> loadedWords);
     }
 }

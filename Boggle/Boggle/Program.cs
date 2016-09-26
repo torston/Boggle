@@ -1,7 +1,4 @@
 ﻿using System;
-using Castle.Facilities.TypedFactory;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 
 namespace Boggle
 {
@@ -19,9 +16,7 @@ namespace Boggle
 
             PrintBoard();
 
-            var container = BoggleBootstrapper.GetContainer(PathToDictionary);
-
-            var solver = container.Resolve<ISolver>(); ;
+            var solver = MyBoggleSolution.CreateSolver(PathToDictionary);
             var result = solver.FindWords(_board);
 
             Console.WriteLine($"The score is: {result.Score} points!");

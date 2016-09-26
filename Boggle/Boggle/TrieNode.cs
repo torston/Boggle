@@ -2,21 +2,21 @@ using System.Collections.Generic;
 
 namespace Boggle
 {
-    public class TrieNode : ITrieNode
+    public class TrieNode
     {
-        public ITrieNode Parent { get; private set; }
+        public TrieNode Parent { get; private set; }
         public bool IsWord { get; set; }
 
-        public Dictionary<char, ITrieNode> Children { get; }
+        public Dictionary<char, TrieNode> Children { get; }
 
         public TrieNode()
         {
-            Children = new Dictionary<char, ITrieNode>();
+            Children = new Dictionary<char, TrieNode>();
         }
 
-        public void SetParent(ITrieNode node)
+        public TrieNode(TrieNode curNode) : this()
         {
-            Parent = node;
+            Parent = curNode;
         }
     }
 }
