@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
 using FluentAssertions;
 
@@ -12,7 +13,7 @@ namespace Boggle.Tests
         {
             var wordsRepository = new WordsRepository("");
 
-            Assert.Throws<FileNotFoundException>(() => wordsRepository.Load());
+            wordsRepository.Invoking(r => r.Load()).ShouldThrow<FileNotFoundException>();
         }
 
         [Test]
@@ -63,5 +64,17 @@ namespace Boggle.Tests
             words.Should().HaveCount(1).And.Contain("word");
         }
 
+        [Test]
+        public void Happy_Pass()
+        {
+            var path = TestContext.CurrentContext.TestDirectory + "/Resources/happy_dictionary.txt";
+            var expected = new HashSet<string>() {"word","wordsecond","anotherword"};
+
+            var wordsRepository = new WordsRepository(path);
+
+            var words = wordsRepository.Load();
+
+            words.ShouldAllBeEquivalentTo(expected);
+        }
     }
 }

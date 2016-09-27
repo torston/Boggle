@@ -15,6 +15,11 @@ namespace Boggle
 
         private int CalculateScore()
         {
+            if (Words == null)
+            {
+                return 0;
+            }
+
             var counter = 0;
 
             foreach (var word in Words)

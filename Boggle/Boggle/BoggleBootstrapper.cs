@@ -14,7 +14,10 @@ namespace Boggle
             _container.Register(
                 Component.For<IWordFinder>()
                     .ImplementedBy<WordFinder>()
-                    .LifestyleSingleton()
+                );
+            _container.Register(
+                Component.For<IValidator>()
+                    .ImplementedBy<Validator>()
                 );
 
             _container.Register(
@@ -25,7 +28,7 @@ namespace Boggle
                 );
 
             _container.Register(
-                Component.For<ITrieHelper>().ImplementedBy<TrieHelper>().LifestyleSingleton()
+                Component.For<ITrieHelper>().ImplementedBy<TrieHelper>()
                 );
 
             _container.Register(

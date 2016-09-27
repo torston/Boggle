@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="BoggleBootstrapper.cs" />
     <Compile Include="BoggleSolver.cs" />
+    <Compile Include="IValidator.cs" />
+    <Compile Include="Validator.cs" />
     <Compile Include="WordFinder.PathNode.cs" />
     <Compile Include="Interfaces\IWordsRepository.cs" />
     <Compile Include="ExtensionMethods.cs" />
