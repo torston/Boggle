@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Boggle
@@ -6,6 +7,11 @@ namespace Boggle
     {
         public TrieNode MakeTrie(HashSet<string> loadedWords)
         {
+            if (loadedWords == null)
+            {
+                throw new ArgumentException("Word hashtable cannot be null");
+            }
+
             var root = new TrieNode();
 
             foreach (var word in loadedWords)

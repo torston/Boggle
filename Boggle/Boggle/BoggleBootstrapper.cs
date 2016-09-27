@@ -3,7 +3,7 @@ using Castle.Windsor;
 
 namespace Boggle
 {
-    internal class BoggleBootstrapper
+    public class BoggleBootstrapper
     {
         private static IWindsorContainer _container;
 
