@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Boggle
 {
     public class BoggleSolver : ISolver
     {
-        private static readonly Regex EnglishLettersPattern = new Regex("^[a-zA-Z]*$", RegexOptions.Compiled);
-
         private readonly IWordFinder _wordFinder;
         private readonly ITrieHelper _trieHelper;
         private readonly IWordsRepository _wordsRepository;
