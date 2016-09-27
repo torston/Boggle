@@ -28,6 +28,7 @@ namespace Boggle
             if (_cachedTrie == null)
             {
                 var loadedWords = _wordsRepository.Load();
+
                 ValidateDictionary(loadedWords);
 
                 _cachedTrie = _trieHelper.MakeTrie(loadedWords);
