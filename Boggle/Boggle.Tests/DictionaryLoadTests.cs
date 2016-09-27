@@ -18,7 +18,7 @@ namespace Boggle.Tests
         [Test]
         public void Load_Dictionary_With_One_Word()
         {
-            string path = TestContext.CurrentContext.TestDirectory + "/Resources/one_word_dictionary.txt";
+            var path = TestContext.CurrentContext.TestDirectory + "/Resources/one_word_dictionary.txt";
 
             var wordsRepository = new WordsRepository(path);
 
@@ -30,7 +30,7 @@ namespace Boggle.Tests
         [Test]
         public void Load_Dictionary_With_No_Text()
         {
-            string path = TestContext.CurrentContext.TestDirectory + "/Resources/empty_dictionary.txt";
+            var path = TestContext.CurrentContext.TestDirectory + "/Resources/empty_dictionary.txt";
 
             var wordsRepository = new WordsRepository(path);
 
@@ -42,7 +42,7 @@ namespace Boggle.Tests
         [Test]
         public void Load_Dictionary_Check_Less_3_Character_Word_Removed()
         {
-            string path = TestContext.CurrentContext.TestDirectory + "/Resources/2_characte_words_dictionary.txt";
+            var path = TestContext.CurrentContext.TestDirectory + "/Resources/2_characte_words_dictionary.txt";
 
             var wordsRepository = new WordsRepository(path);
 
@@ -54,7 +54,7 @@ namespace Boggle.Tests
         [Test]
         public void Load_Dictionary_Check_Same_Words_Removed()
         {
-            string path = TestContext.CurrentContext.TestDirectory + "/Resources/same_words_dictionary.txt";
+            var path = TestContext.CurrentContext.TestDirectory + "/Resources/same_words_dictionary.txt";
 
             var wordsRepository = new WordsRepository(path);
 
