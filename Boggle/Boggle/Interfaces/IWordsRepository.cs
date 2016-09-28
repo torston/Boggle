@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Boggle
+namespace Boggle.Interfaces
 {
     public interface IWordsRepository
     {

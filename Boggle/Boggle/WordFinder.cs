@@ -10,6 +10,7 @@ namespace Boggle
 
         public HashSet<string> FindWords(char[,] board, TrieNode tree)
         {
+            _words.Clear();
             _board = board;
 
             for (var i = 0; i < board.GetLength(0); i++)

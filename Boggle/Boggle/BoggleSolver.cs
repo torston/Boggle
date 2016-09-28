@@ -1,4 +1,6 @@
-﻿namespace Boggle
+﻿using Boggle.Interfaces;
+
+namespace Boggle
 {
     public class BoggleSolver : ISolver
     {

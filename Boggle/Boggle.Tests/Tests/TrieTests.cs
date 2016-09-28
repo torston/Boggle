@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Boggle.Tests
+namespace Boggle.Tests.Tests
 {
     [TestFixture]
     internal class TrieTests

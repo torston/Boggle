@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using NUnit.Framework;
 using FluentAssertions;
+using NUnit.Framework;
 
-namespace Boggle.Tests
+namespace Boggle.Tests.Tests
 {
     [TestFixture]
     public class DictionaryLoadTests

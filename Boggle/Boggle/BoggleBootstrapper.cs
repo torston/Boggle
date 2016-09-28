@@ -1,3 +1,4 @@
+using Boggle.Interfaces;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 

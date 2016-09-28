@@ -2,7 +2,7 @@
 using Ploeh.AutoFixture.AutoNSubstitute;
 using Ploeh.AutoFixture.NUnit2;
 
-namespace Boggle.Tests
+namespace Boggle.Tests.Helpers
 {
     public class AutoNSubstituteDataAttribute : AutoDataAttribute
     {

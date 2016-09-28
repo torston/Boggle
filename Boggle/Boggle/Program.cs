@@ -12,7 +12,8 @@ namespace Boggle
 
         private static void Main(string[] args)
         {
-            CreateRandomBoard();
+            _board = new char[3,3];
+            _board = _board.CreateBoardFromString("dzxeaiqut");
 
             PrintBoard();
 
@@ -20,20 +21,7 @@ namespace Boggle
             var result = solver.FindWords(_board);
 
             Console.WriteLine($"The score is: {result.Score} points!");
-            Console.WriteLine($"Words are: \n {string.Join(", ", result.Words)}");
-        }
-
-        private static void CreateRandomBoard()
-        {
-            _board = new char[Rows, Columns];
-
-            for (var i = 0; i < Columns; i++)
-            {
-                for (var j = 0; j < Rows; j++)
-                {
-                    _board[i, j] = "dzxeaiqut"[j + Columns * i];
-                }
-            }
+            Console.WriteLine($"Words are: \n {string.Join("\", \"", result.Words)}");
         }
 
         private static void PrintBoard()

@@ -15,5 +15,23 @@
         {
             return character < 63 || character > 126;
         }
+
+        public static char[,] CreateBoardFromString(this char[,] array, string s)
+        {
+            int rows = array.GetUpperBound(0) + 1;
+            int columns = array.GetUpperBound(1) + 1;
+
+            array = new char[rows, columns];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    array[i, j] = s[i * rows + j];
+                }
+            }
+
+            return array;
+        }
+
     }
 }

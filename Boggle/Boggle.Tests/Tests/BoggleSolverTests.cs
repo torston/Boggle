@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using Boggle.Interfaces;
+using Boggle.Tests.Helpers;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit2;
 
-namespace Boggle.Tests
+namespace Boggle.Tests.Tests
 {
     [TestFixture]
     public class BoggleSolverTests
