@@ -7,6 +7,10 @@ namespace Boggle
     {
         public void ValidateBoard(char[,] inputBoard)
         {
+            if (inputBoard == null)
+            {
+                throw new ArgumentException("Board can not be null");
+            }
             if (inputBoard.GetUpperBound(0) < 2 || inputBoard.GetUpperBound(1) < 2)
             {
                 throw new ArgumentException("Board size should be grater or equals 3x3");
