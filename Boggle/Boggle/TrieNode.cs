@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Boggle
@@ -15,9 +14,9 @@ namespace Boggle
             Children = new Dictionary<char, TrieNode>();
         }
 
-        public TrieNode(TrieNode curNode) : this()
+        public TrieNode(TrieNode parent) : this()
         {
-            Parent = curNode;
+            Parent = parent;
         }
     }
 }

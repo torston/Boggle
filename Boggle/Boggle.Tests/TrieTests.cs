@@ -8,166 +8,192 @@ namespace Boggle.Tests
     [TestFixture]
     internal class TrieTests
     {
-        //[Test]
-        public void Create_Trie_From_Null()
+        [Test]
+        public void create_trie_from_null_exception()
         {
             var trieHelper = new TrieHelper();
 
-            Assert.Throws<ArgumentException>(() => trieHelper.MakeTrie(null));
+            trieHelper
+                .Invoking(r => r.MakeTrie(null))
+                .ShouldThrow<ArgumentException>()
+                .WithMessage("Words hashset cannot be null");
         }
 
-        //[Test]
-        public void Create_Trie_For_One_Letter_Word()
+        [Test]
+        public void create_tied_one_letter_one_child_node()
         {
             var trieHelper = new TrieHelper();
-
             var words = new HashSet<string> { "w" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
+            var expected = new TrieNode();
+            var node = new TrieNode(expected);
 
-            Assert.AreEqual(trie, new TrieNode
-            {
-                Children =
-                {
-                    {
-                        'w', new TrieNode
-                        {
-                            IsWord = true
-                        }
-                    }
-                }
-            });
+            expected.Children.Add('w', node);
+
+            node.IsWord = true;
+
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
-        //[Test]
-        public void Create_Trie_For_One_Word()
+        [Test]
+        public void crete_trie_from_word_three_nested_nodes()
         {
             var trieHelper = new TrieHelper();
 
             var words = new HashSet<string> { "abc" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
 
-            var rootNode = new TrieNode();
-            var node2 = new TrieNode(rootNode);
+            var expected = new TrieNode();
+            var node = new TrieNode(expected);
+            var node2 = new TrieNode(node);
             var node3 = new TrieNode(node2);
-            var node4 = new TrieNode(node3);
 
-            rootNode.Children.Add('a', node2);
-            node2.Children.Add('b', node3);
-            node3.Children.Add('c', node4);
+            expected.Children.Add('a', node);
+            node.Children.Add('b', node2);
+            node2.Children.Add('c', node3);
 
             node3.IsWord = true;
 
-            trie.Should().Be(rootNode);
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
-        //[Test]
-        public void Create_Trie_For_Three_Words()
+        [Test]
+        public void create_trie_three_words_three_children()
         {
             var trieHelper = new TrieHelper();
 
             var words = new HashSet<string> { "a", "b", "c" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
 
-            var rootNode = new TrieNode();
-            var node2 = new TrieNode(rootNode);
-            var node3 = new TrieNode(rootNode);
-            var node4 = new TrieNode(rootNode);
+            var expected = new TrieNode();
+            var node2 = new TrieNode(expected);
+            var node3 = new TrieNode(expected);
+            var node4 = new TrieNode(expected);
 
-            rootNode.Children.Add('a', node2);
-            rootNode.Children.Add('b', node3);
-            rootNode.Children.Add('c', node4);
+            expected.Children.Add('a', node2);
+            expected.Children.Add('b', node3);
+            expected.Children.Add('c', node4);
 
             node2.IsWord = true;
             node3.IsWord = true;
             node4.IsWord = true;
 
-            trie.Should().BeSameAs(rootNode);
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
-        //[Test]
-        public void Create_Trie_For_Same_Words()
+        [Test]
+        public void create_trie_two_words_three_nested_children()
         {
             var trieHelper = new TrieHelper();
 
-            var words = new HashSet<string> { "abc", "abc", "abc" };
+            var words = new HashSet<string> { "abc", "abc" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
 
-            var rootNode = new TrieNode();
-            var node2 = new TrieNode(rootNode);
+            var expected = new TrieNode();
+            var node2 = new TrieNode(expected);
             var node3 = new TrieNode(node2);
             var node4 = new TrieNode(node3);
 
-            rootNode.Children.Add('a', node2);
+            expected.Children.Add('a', node2);
             node2.Children.Add('b', node3);
             node3.Children.Add('c', node4);
 
-            node3.IsWord = true;
+            node4.IsWord = true;
 
-            trie.Should().BeSameAs(rootNode);
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
-        //[Test]
-        public void Create_Trie_For_Different_Words()
+        [Test]
+        public void create_trie_two_words_three_nested_children_per_word()
         {
             var trieHelper = new TrieHelper();
 
             var words = new HashSet<string> { "abc", "def" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
 
-            var rootNode = new TrieNode();
+            var expected = new TrieNode();
 
-            var node2 = new TrieNode(rootNode);
+            var node2 = new TrieNode(expected);
             var node3 = new TrieNode(node2);
             var node4 = new TrieNode(node3);
 
-            var node5 = new TrieNode(rootNode);
+            var node5 = new TrieNode(expected);
             var node6 = new TrieNode(node5);
             var node7 = new TrieNode(node6);
 
-            rootNode.Children.Add('a', node2);
-            rootNode.Children.Add('d', node5);
+            expected.Children.Add('a', node2);
+            expected.Children.Add('d', node5);
 
             node2.Children.Add('b', node3);
             node3.Children.Add('c', node4);
 
-            node6.Children.Add('b', node6);
-            node7.Children.Add('c', node6);
+            node5.Children.Add('e', node6);
+            node6.Children.Add('f', node7);
 
             node4.IsWord = true;
             node7.IsWord = true;
 
-            trie.Should().BeSameAs(rootNode);
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
-        //[Test]
-        public void Create_Trie_For_Same_Prefix_Words()
+        [Test]
+        public void create_tree_same_prefix_words_nested()
         {
             var trieHelper = new TrieHelper();
 
             var words = new HashSet<string> { "ab", "abc" };
 
-            var trie = trieHelper.MakeTrie(words);
+            var actual = trieHelper.MakeTrie(words);
 
-            var rootNode = new TrieNode();
+            var expected = new TrieNode();
 
-            var node2 = new TrieNode(rootNode);
+            var node2 = new TrieNode(expected);
             var node3 = new TrieNode(node2);
             var node4 = new TrieNode(node3);
 
-            rootNode.Children.Add('a', node2);
+            expected.Children.Add('a', node2);
 
             node2.Children.Add('b', node3);
             node3.Children.Add('c', node4);
 
-            node2.IsWord = true;
             node3.IsWord = true;
+            node4.IsWord = true;
 
-            trie.Should().BeSameAs(rootNode);
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
+        }
+
+        [Test]
+        public void happy_path()
+        {
+            var trieHelper = new TrieHelper();
+
+            var words = new HashSet<string> { "ab", "abc", "d" };
+
+            var actual = trieHelper.MakeTrie(words);
+
+            var expected = new TrieNode();
+
+            var node2 = new TrieNode(expected);
+            var node3 = new TrieNode(node2);
+            var node4 = new TrieNode(node3);
+            var node5 = new TrieNode(expected);
+
+            expected.Children.Add('a', node2);
+            expected.Children.Add('d', node5);
+
+            node2.Children.Add('b', node3);
+            node3.Children.Add('c', node4);
+
+            node3.IsWord = true;
+            node4.IsWord = true;
+            node5.IsWord = true;
+
+            actual.ShouldBeEquivalentTo(expected, o => o.IgnoringCyclicReferences());
         }
 
 
