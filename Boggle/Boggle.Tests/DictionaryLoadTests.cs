@@ -9,7 +9,7 @@ namespace Boggle.Tests
     public class DictionaryLoadTests
     {
         [Test]
-        public void Load_Dictionary_With_Not_Valid_Path()
+        public void load_dictionary_empty_pass_exception()
         {
             var wordsRepository = new WordsRepository("");
 
@@ -17,7 +17,7 @@ namespace Boggle.Tests
         }
 
         [Test]
-        public void Load_Dictionary_With_One_Word()
+        public void load_dictionary_one_word_loaded()
         {
             var path = TestContext.CurrentContext.TestDirectory + "/Resources/one_word_dictionary.txt";
 
@@ -29,7 +29,7 @@ namespace Boggle.Tests
         }
 
         [Test]
-        public void Load_Dictionary_With_No_Text()
+        public void load_empty_dictionary_returns_empty_set()
         {
             var path = TestContext.CurrentContext.TestDirectory + "/Resources/empty_dictionary.txt";
 
@@ -41,7 +41,7 @@ namespace Boggle.Tests
         }
 
         [Test]
-        public void Load_Dictionary_Check_Less_3_Character_Word_Removed()
+        public void load_dictionary_less_3_letter_words_filtered()
         {
             var path = TestContext.CurrentContext.TestDirectory + "/Resources/2_characte_words_dictionary.txt";
 
@@ -53,7 +53,7 @@ namespace Boggle.Tests
         }
 
         [Test]
-        public void Load_Dictionary_Check_Same_Words_Removed()
+        public void load_dictionary_same_words_removed()
         {
             var path = TestContext.CurrentContext.TestDirectory + "/Resources/same_words_dictionary.txt";
 
@@ -65,7 +65,7 @@ namespace Boggle.Tests
         }
 
         [Test]
-        public void Happy_Pass()
+        public void happy_path()
         {
             var path = TestContext.CurrentContext.TestDirectory + "/Resources/happy_dictionary.txt";
             var expected = new HashSet<string>() {"word","wordsecond","anotherword"};
