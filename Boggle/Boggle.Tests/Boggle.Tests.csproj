@@ -86,12 +86,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoNSubstituteDataAttribute.cs" />
-    <Compile Include="BoggleSolverTests.cs" />
-    <Compile Include="LocalAddin.cs" />
+    <Compile Include="Helpers\AutoNSubstituteDataAttribute.cs" />
+    <Compile Include="Tests\BoggleSolverTests.cs" />
+    <Compile Include="Helpers\LocalAddin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DictionaryLoadTests.cs" />
-    <Compile Include="TrieTests.cs" />
+    <Compile Include="Tests\DictionaryLoadTests.cs" />
+    <Compile Include="Tests\TrieTests.cs" />
+    <Compile Include="Tests\ValidatorTests.cs" />
+    <Compile Include="Tests\WordFinderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
