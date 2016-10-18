@@ -3,13 +3,13 @@ using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Boggle.Tests.Tests
+namespace Boggle.Tests.Integration
 {
     [TestFixture]
-    public class DictionaryLoadTests
+    public class WordsRepositoryIntegrationTests
     {
         [Test]
-        public void load_dictionary_empty_pass_exception()
+        public void load_dictionary_empty_path_exception()
         {
             var wordsRepository = new WordsRepository("");
 

@@ -6,13 +6,13 @@ using NSubstitute;
 using NUnit.Framework;
 using Ploeh.AutoFixture.NUnit2;
 
-namespace Boggle.Tests.Tests
+namespace Boggle.Tests
 {
     [TestFixture]
     public class BoggleSolverTests
     {
         [Test, AutoNSubstituteData]
-        public void findwords_call_validator_validateboard(
+        public void findwords_call_validator_validate_board(
             [Frozen] IValidator validator,
             BoggleSolver sut,
             char[,] board
@@ -36,7 +36,7 @@ namespace Boggle.Tests.Tests
         }
 
         [Test, AutoNSubstituteData]
-        public void findwords_call_validator_validatewords(
+        public void findwords_call_validator_validate_words(
             [Frozen] IValidator validator,
             [Frozen] IWordsRepository repository,
             BoggleSolver sut,

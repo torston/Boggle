@@ -8,7 +8,7 @@ namespace Boggle
         {
             var container = BoggleBootstrapper.GetContainer(dictionaryPath);
 
-            return container.Resolve<ISolver>(); ;
+            return container.Resolve<ISolver>();
         }
     }
 }
